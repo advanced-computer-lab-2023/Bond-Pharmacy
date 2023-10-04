@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PatientRegistrationForm from "./pages/patientRegistration.js";
-import DoctorRegistrationForm from "./pages/doctorRegistration.js";
 import LandingPage from "./pages/LandingPage.js";
 import AdminPanel from "./pages/admin.js";
+import PharmacistRegistrationForm from "./pages/pharmacistRegistration.js";
 
 function App() {
   return (
@@ -19,8 +19,8 @@ function App() {
             element={<PatientRegistrationForm/>}
             />
             <Route
-            path="/doctor"
-            element={<DoctorRegistrationForm/>}
+            path="/pharmacist"
+            element={<PharmacistRegistrationForm/>}
             />
             <Route
             path="/admin"

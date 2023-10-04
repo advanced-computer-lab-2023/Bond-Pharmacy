@@ -1,7 +1,7 @@
-import doctorModel from "../models/doctorModel.js";
+import pharmacistModel from "../models/pharmacistModel.js";
 
 
-export const createDoctor = async (req, res) => {
+export const createPharmacist = async (req, res) => {
   const {
     username,
     name,
@@ -15,7 +15,7 @@ export const createDoctor = async (req, res) => {
     educationBg
   } = req.body;
   try {
-    const doctor = await doctorModel.create({
+    const doctor = await pharmacistModel.create({
       username,
       name,
       email,
@@ -33,7 +33,7 @@ export const createDoctor = async (req, res) => {
   }
 };
 
-export const fetchDoctor = async (req, res) => {
+export const fetchPharmacist = async (req, res) => {
   try {
     const doctors = await doctorModel.find();
     res.status(200).json(doctors);
@@ -42,11 +42,11 @@ export const fetchDoctor = async (req, res) => {
   }
 }
 
-  export const deleteDoctor = async (req, res) => {
+  export const deletePharmacist = async (req, res) => {
     const{username}=req.body;
 
     try {
-      const deletedUser = await doctorModel.findOneAndDelete({ username});
+      const deletedUser = await doctorModel.findOneAndDelete({username});
       res.status(200).json(deletedUser);
     } catch (error) {
       res.status(404).json({error: error.message});

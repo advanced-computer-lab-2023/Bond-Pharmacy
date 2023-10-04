@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 
-function DoctorRegistrationForm() {
+function PharmacistRegistrationForm() {
   const [formData, setFormData] = useState({
     username: '',
     name: '',
@@ -28,7 +28,7 @@ function DoctorRegistrationForm() {
     // Add your form submission logic here
     // You can validate the data and make an API request to register the user or doctor
     // Example: axios.post('/api/register', formData)
-    const response = await fetch("http://localhost:4000/api/doctor", {
+    const response = await fetch("http://localhost:4000/api/pharmacist", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
@@ -40,7 +40,7 @@ function DoctorRegistrationForm() {
       alert(json.error);
     }
     if (response.ok){
-      alert("Doctor Registered Successfully");
+      alert("Pharmacist Registered Successfully");
     }
   };
 
@@ -179,4 +179,4 @@ function DoctorRegistrationForm() {
   );
 }
 
-export default DoctorRegistrationForm;
+export default PharmacistRegistrationForm;

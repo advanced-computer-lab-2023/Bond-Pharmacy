@@ -1,6 +1,6 @@
 import express from "express";
 import patientRoutes from "./routes/patient.js";
-import doctorRoutes from "./routes/doctor.js";
+import pharmacistRoutes from "./routes/pharmacist.js";
 import adminRoutes from "./routes/admin.js"
 import mongoose from "mongoose";
 import cors from "cors";
@@ -20,7 +20,7 @@ app.use(cors());
 
 //routes
 app.use("/api/patient/", patientRoutes);
-app.use("/api/doctor/", doctorRoutes);
+app.use("/api/pharmacist/", pharmacistRoutes);
 app.use("/api/admin/", adminRoutes);
 
 //connect to db

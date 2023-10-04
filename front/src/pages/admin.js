@@ -4,20 +4,20 @@ import axios from "axios";
 function AdminPanel() {
   const [newAdmin, setNewAdmin] = useState({ username: "", password: "" });
   const [oldAdmin, deleteAdmin] = useState({ username: ""});
-  const [oldDoctor, deleteDoctor] = useState({ username: ""});
+  const [oldPharmacist, deletePharmacist] = useState({ username: ""});
   const [oldPatient, deletePatient] = useState({ username: ""});
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
 
   const handleUserClick = (user) => {
     setSelectedUser(user);
-    deleteDoctor({username:user.username});
+    deletePharmacist({username:user.username});
   };
 
   useEffect(() => {
     // Fetch user data from your backend API
     axios
-      .get("http://localhost:4000/api/doctor") // Replace '/api/users' with the actual API endpoint
+      .get("http://localhost:4000/api/pharmacist") // Replace '/api/users' with the actual API endpoint
       .then((response) => {
         setUsers(response.data);
       })
@@ -67,16 +67,16 @@ function AdminPanel() {
       alert("Admin Deleted Successfully");
     }
   };
-  const handleRemoveDoctor = async (e) => {
+  const handleRemovePharmacist = async (e) => {
     e.preventDefault();
     // Send a request to remove the user with the given userId
     // Example: axios.delete(`/api/users/${userId}`).then(() => {
     //   // Refresh the adminData after user removal
     // });
-    console.log(oldDoctor);
-    const response = await fetch("http://localhost:4000/api/doctor", {
+    console.log(oldPharmacist);
+    const response = await fetch("http://localhost:4000/api/Pharmacist", {
       method: "DELETE",
-      body: JSON.stringify(oldDoctor),
+      body: JSON.stringify(oldPharmacist),
       headers: {
         "Content-Type": "application/json",
       },
@@ -86,7 +86,7 @@ function AdminPanel() {
       alert(json.error);
     }
     if (response.ok) {
-      alert("Doctor Deleted Successfully");
+      alert("Pharmacist Deleted Successfully");
     }
   };
   const handleRemovePatient = async (e) => {
@@ -110,10 +110,10 @@ function AdminPanel() {
       alert("Patient Deleted Successfully");
     }
   };
-  const handleAcceptDoctor = async (e) => {
+  const handleAcceptPharmacist = async (e) => {
     e.preventDefault();
-    //TODO accept a doctor
-    // const response = await fetch("http://localhost:4000/api/doctor", {
+    //TODO accept a Pharmacist
+    // const response = await fetch("http://localhost:4000/api/Pharmacist", {
     //   method: "POST",
     //   body: JSON.stringify(newAdmin),
     //   headers: {
@@ -173,17 +173,17 @@ function AdminPanel() {
       </div>
       <div className="form-container">
       <h3>
-          Remove Doctor
+          Remove Pharmacist
         </h3>
         <input
           type="text"
           placeholder="Username"
-          value={oldDoctor.username}
+          value={oldPharmacist.username}
           onChange={(e) =>
-            deleteDoctor({ ...oldDoctor, username: e.target.value })
+            deletePharmacist({ ...oldPharmacist, username: e.target.value })
           }
         />
-        <button onClick={handleRemoveDoctor}>Delete doctor</button>
+        <button onClick={handleRemovePharmacist}>Delete Pharmacist</button>
       </div>
       <div className="form-container">
       <h3>Remove Patient</h3>
@@ -200,7 +200,7 @@ function AdminPanel() {
 
       {/* User List */}
       <div>
-      <h2 className="table-name">Doctor List</h2>
+      <h2 className="table-name">Pharmacist List</h2>
       <table className="user-table">
         <thead>
           <tr>
@@ -240,8 +240,8 @@ function AdminPanel() {
 
       {selectedUser && (
         <div className="select-buttons">
-          <button className="one" onClick={handleAcceptDoctor}>Accept Doctor</button>
-          <button className= "two" onClick={handleRemoveDoctor}>Delete Doctor</button>
+          <button className="one" onClick={handleAcceptPharmacist}>Accept Pharmacist</button>
+          <button className= "two" onClick={handleRemovePharmacist}>Delete Pharmacist</button>
         </div>
       )}
     </div>
