@@ -107,17 +107,16 @@ button:hover {
 /* Add lines between forms */
 .form-container {
   display: inline-block;
-  border: 2px solid #d4d4d4;
-  padding: 40px;
+  border: 1px solid #d4d4d4;
+  padding: 30px;
   margin-bottom: 40px;
-  margin-left: 1px;
   margin-top: 40px;
   border-radius: 5px;
 }
 
 /* Style text input elements */
 .form-container input[type="password"] {
-  margin-left: 5px;
+  margin-left: 2px;
 }
 
 .form-container input[type="text"],
