@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 //.env
-const port = process.env.PORT || 4000; // Default to port 3000 if the environment variable is not set
+const port = process.env.PORT || 4000; // Default to port 4000 if the environment variable is not set
 const mongo = process.env.MONGO_URI;
 
 //middleware
