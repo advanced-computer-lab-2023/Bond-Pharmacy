@@ -1,5 +1,5 @@
 import adminModel from "../models/adminModel.js";
-
+import pharmacistmodel from "../models/pharmacistModel.js";
 
 export const createAdmin = async (req, res) => {
   const {
@@ -26,3 +26,14 @@ export const deleteAdmin = async (req, res) => {
     res.status(404).json({error: error.message});
   }
 }
+export const viewpharmacist =  async (req, res) => {
+  try {
+    const pharmacist = await pharmacistmodel.find();
+    res.status(200).json(pharmacist);
+  } catch (error) {
+    res.status(404).json({error: error.message});
+  }
+}
+
+
+
