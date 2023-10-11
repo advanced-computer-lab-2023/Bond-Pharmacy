@@ -21,9 +21,11 @@ const medicineSchema = new mongoose.Schema({
     },
     description: {
         type: String,
+        default: ""
     },
     medicalUse: {
         type: String,
+        default: "",
         // i assumed here that the medical use can be described in 2 words maximum
         trim: true,
     },
@@ -34,4 +36,4 @@ const medicineSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model('medicine',medicineSchema)
+export default mongoose.model('medicine', medicineSchema)
