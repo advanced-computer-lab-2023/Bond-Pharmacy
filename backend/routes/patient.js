@@ -13,4 +13,5 @@ router.post("/", createPatient);
 //delete request
 router.delete('/',deletePatient);
 
+
 export default router;

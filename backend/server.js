@@ -13,7 +13,6 @@ const app = express();
 //.env
 const port = process.env.PORT || 4000; // Default to port 4000 if the environment variable is not set
 const mongo = process.env.MONGO_URI;
-
 //middleware
 app.use(express.json());
 app.use(cors());
@@ -25,7 +24,7 @@ app.use("/api/admin/", adminRoutes);
 
 //connect to db
 mongoose
-  .connect(mongo )
+  .connect(mongo)
   .then(() => {
     // listen for requests
     app.listen(port, () => console.log(`Connected to MongoDB and Server is running on port 4000`));
