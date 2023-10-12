@@ -9,7 +9,7 @@ function PharmacistModal(props) {
   };
   const handleShow = async () => {
     console.log(props.data);
-    const response = await fetch("http://localhost:4000/api/doctor", {
+    const response = await fetch("http://localhost:4000/api/pharmacist/createPharmacist", {
       method: "POST",
       body: JSON.stringify(props.data),
       headers: {

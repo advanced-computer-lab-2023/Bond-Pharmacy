@@ -13,6 +13,7 @@ const medicineSchema = new mongoose.Schema({
     },
     quantity: {
         type: Number,
+        required: true,
         default: 1,
     },
     sales: {
@@ -21,9 +22,11 @@ const medicineSchema = new mongoose.Schema({
     },
     description: {
         type: String,
+        default: ""
     },
     medicalUse: {
         type: String,
+        default: "",
         // i assumed here that the medical use can be described in 2 words maximum
         trim: true,
     },
@@ -34,4 +37,4 @@ const medicineSchema = new mongoose.Schema({
     }
 });
 
-export default mongoose.model('medicine',medicineSchema)
+export default mongoose.model('medicine', medicineSchema)
