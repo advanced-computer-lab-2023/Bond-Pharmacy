@@ -1,5 +1,5 @@
 import express from "express";
-import { getMedicines, createMedicine, createPharmacist, deletePharmacist, fetchPharmacist, viewMedicineQS, addMedicine, editMedicineIandP } from "../controllers/pharmacistController.js";
+import { searchMedicine,getMedicines, createMedicine, createPharmacist, deletePharmacist, fetchPharmacist, viewMedicineQS, addMedicine, editMedicineIandP } from "../controllers/pharmacistController.js";
 
 //router initialization
 const router = express.Router();
@@ -14,6 +14,10 @@ router.post('/createMedicine', createMedicine);
 
 router.get('/getMedicines', getMedicines);
 
+router.get('/searchMedicines', searchMedicine);
+
+
+
 router.delete('/', deletePharmacist);
 
 //req.13
@@ -24,5 +28,6 @@ router.post('/addMedicine', addMedicine);
 
 //req. 18
 router.patch('/editMedicineIandP', editMedicineIandP);
+
 
 export default router

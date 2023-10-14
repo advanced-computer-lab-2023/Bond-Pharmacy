@@ -134,4 +134,25 @@ export const deletePharmacist = async (req, res) => {
   }
 }
 
+export const searchMedicine = async (req, res) => {
+  const { name } = req.query;
+
+  try {
+    console.log("name:",name);
+    const medicines = await medicineModel.find({ name: { $regex: name, $options: 'i' }});
+
+    if (medicines.length === 0) {
+      return res.status(404).json({ message: 'No medicines found.' });
+    }
+
+    res.status(200).json(medicines);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error.' });
+  }
+};
+
+
+
+
 
