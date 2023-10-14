@@ -14,11 +14,6 @@ import PharmacistRegistration from "./pages/registration/PharmacistRegistration.
 import AdminHome from "./pages/home/AdminHome.jsx";
 import PatientHome from "./pages/home/PatientHome.jsx";
 import PharmacistHome from "./pages/home/PharmacistHome.jsx";
-import AddMedicine from "../../front/src/components/AddMedicineForm";
-import GetMedicines from "../../front/src/components/GetMedicineForm";
-import GetMedicinesForm from "../../front/src/components/GetMedicineForm";
-import AddMedicineForm from "../../front/src/components/AddMedicineForm";
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -45,14 +40,6 @@ const App = () => {
           <Route
             path="/pharmacist/home/:username"
             element={<PharmacistHome />}
-          />
-          <Route
-            path="/pharmacist/home/add-medicine"
-            element={<AddMedicineForm />}
-          />
-          <Route
-            path="/pharmacist/home/get-medicines"
-            element={<GetMedicinesForm />}
           />
         </Routes>
       </QueryClientProvider>
