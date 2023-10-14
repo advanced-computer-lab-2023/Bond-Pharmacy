@@ -134,20 +134,30 @@ export const deletePharmacist = async (req, res) => {
   }
 }
 
+// Define an asynchronous function to search for medicines based on a provided name
 export const searchMedicine = async (req, res) => {
+  // Extract the 'name' parameter from the query string of the request
   const { name } = req.query;
 
   try {
-    console.log("name:",name);
+    // Log the search 'name' to the console for debugging purposes
+    console.log("name:", name);
+
+    // Search for medicines in the database that match the provided 'name' using a case-insensitive regex
     const medicines = await medicineModel.find({ name: { $regex: name, $options: 'i' }});
 
+    // If no medicines are found, return a 404 Not Found response
     if (medicines.length === 0) {
       return res.status(404).json({ message: 'No medicines found.' });
     }
 
+    // If medicines are found, return a 200 OK response with the list of medicines
     res.status(200).json(medicines);
   } catch (err) {
+    // If an error occurs during the search, log the error to the console
     console.error(err);
+    
+    // Return a 500 Internal Server Error response to indicate a server error
     res.status(500).json({ message: 'Server error.' });
   }
 };
