@@ -5,6 +5,7 @@ function PharmacistHome() {
     const [newInfo, setNewInfo] = useState({ name: "", ingredients: "",price:"" });
     const [medicines, setMedicines] = useState([]);
   const [showTable, setShowTable] = useState(false);
+  const [medicineAdded, setMedicineAdded] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -12,12 +13,14 @@ function PharmacistHome() {
         const response = await fetch('http://localhost:4000/api/Pharmacist/viewMedicineQS');
         const data = await response.json();
         setMedicines(data.medicineQS);
+        setMedicineAdded(false); // Reset medicineAdded to false after fetching medicines
       } catch (error) {
         console.error(error);
       }
     }
     fetchData();
-  }, []);
+  }, [medicineAdded]); // Add medicineAdded to the dependency array
+  
   
     const handleAddMed = async (e) => {
         e.preventDefault();
@@ -34,6 +37,7 @@ function PharmacistHome() {
         }
         if (response.ok) {
           alert("Med added Successfully");
+          setMedicineAdded(true);
         }
       };
 
