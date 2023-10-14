@@ -27,12 +27,13 @@ export const deleteAdmin = async (req, res) => {
     res.status(404).json({error: error.message});
   }
 }
+
 export const viewpharmacist =  async (req, res) => {
   try {
     const pharmacist = await pharmacistModel.find();
     res.status(200).json(pharmacist);
   } catch (error) {
-    res.status(404).json({error: error.message});
+    res.status(400).json({error: error.message});
   }
 }
 

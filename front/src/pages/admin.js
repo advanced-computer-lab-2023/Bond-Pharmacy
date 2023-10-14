@@ -8,6 +8,7 @@ function AdminPanel() {
   const [oldPatient, deletePatient] = useState({ username: ""});
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [patients, setPatients] = useState(null);
 
   const handleUserClick = (user) => {
     setSelectedUser(user);
@@ -17,7 +18,7 @@ function AdminPanel() {
   useEffect(() => {
     // Fetch user data from your backend API
     axios
-      .get("http://localhost:4000/api/pharmacist") // Replace '/api/users' with the actual API endpoint
+      .get("http://localhost:4000/api/admin/pharmacists/")
       .then((response) => {
         setUsers(response.data);
       })
@@ -74,7 +75,7 @@ function AdminPanel() {
     //   // Refresh the adminData after user removal
     // });
     console.log(oldPharmacist);
-    const response = await fetch("http://localhost:4000/api/Pharmacist", {
+    const response = await fetch("http://localhost:4000/api/pharmacist", {
       method: "DELETE",
       body: JSON.stringify(oldPharmacist),
       headers: {
@@ -129,10 +130,25 @@ function AdminPanel() {
     // }
   }
 
+  const handleFetchPateints = async(e) => {
+    e.preventDefault();
+
+    const response = await fetch("http://localhost:4000/api/patient", {
+      method: "GET",
+    });
+    const json = await response.json();
+    if (response.ok) {
+      setPatients(json );
+    }
+    else {
+      alert(json.error.message);
+    }
+  }
+  
+
   return (
     <div>
       <h1 className="title">Admin Panel</h1>
-
       {/* Add Admin Form */}
       <div className="form-container">
         <h3>
@@ -245,6 +261,57 @@ function AdminPanel() {
         </div>
       )}
     </div>
+    {/* <button className="pharmacists-view" onClick={handleFetchPharmacists}>View pharmacists</button> */}
+    {/* <br/> */}
+    
+    {/* <div>
+        <h2>Pharmacist List</h2>
+        <ul>
+          {pharmacists && pharmacists.map((pharmacist) => (
+            <li key={pharmacist._id}>{pharmacist.name}</li>
+          ))}
+        </ul>
+      </div> */}
+
+    <button className="pateints-view" onClick={handleFetchPateints}>View patients</button>
+    <br/>
+
+    <div>
+      <h2 className="table-name">Patients List</h2>
+      <table className="user-table">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Date of Birth</th>
+            <th>Gender</th>
+            <th>Phone Number</th>
+            <th>Emergency FullName</th>
+            <th>Emergency PhoneNumber</th>
+          </tr>
+        </thead>
+        <tbody>
+          {patients.map((patient) => (
+            <tr
+              key={patient.id}
+            >
+              <td>{patient.username}</td>
+              <td>{patient.name}</td>
+              <td>{patient.email}</td>
+              <td>{patient.password}</td>
+              <td>{patient.dob}</td>
+              <td>{patient.gender}</td>
+              <td>{patient.phoneNumber}</td>
+              <td>{patient.emergencyFullName}</td>
+              <td>{patient.emergencyPhoneNumber}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    
     </div>
   );
 }
