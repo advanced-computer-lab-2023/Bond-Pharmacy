@@ -1,0 +1,116 @@
+/* MedicineSearch.css */
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.medicine-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f5f9fc;
+}
+
+.medicine-table th,
+.medicine-table td {
+  padding: 10px;
+  margin-left: 10px;
+  text-align: center;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+.medicine-row:hover {
+  background-color: #e0f5ff;
+  cursor: pointer;
+}
+
+.selected {
+  background-color: #b3daff;
+}
+
+.medicine-details-table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f5f9fc;
+}
+
+.medicine-details-table th,
+.medicine-details-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #d4d4d4;
+}
+
+button {
+  background-color: #ff4400;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.medicine-search-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  padding: 10px;
+  background-color: #ff4400;
+  color: #fff;
+  text-decoration: none;
+  border: #fff;
+  border-radius: 20px;
+}
+
+.medicine-search-button:hover {
+  background-color: #ff440055;
+}
+img {
+  max-width: 100px; /* Set the maximum width for the images */
+  max-height: 100px; /* Set the maximum height for the images */
+}
+
+
+
+.medicine-search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row; /* Change back to row to align elements horizontally */
+  padding: 20px;
+  margin-top: 20px; /* Add margin to position it at the top of the page */
+}
+
+.search-bar {
+  flex: 1; /* Use flex to expand the search bar to fill available space */
+  width: auto; /* Remove the fixed width */
+  font-size: 18px; /* Adjust the font size as needed */
+  padding: 10px;
+  margin-right: 10px; /* Add margin to separate the search bar and button */
+}
+
+.search-button {
+  background-color: #ff4400;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+

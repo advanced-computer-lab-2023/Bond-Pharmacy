@@ -5,6 +5,7 @@ import AdminPanel from "./pages/admin.js";
 import PharmacistRegistrationForm from "./pages/pharmacistRegistration.js";
 import PatientHome from "./pages/patient.js";
 import PharmacistHome from "./pages/pharmacist.js";
+import SearchMedicine from "./pages/searchMedicine.js"
 
 function App() {
   return (
@@ -24,6 +25,12 @@ function App() {
             path="/patient/home"
             element={<PatientHome/>}
             />
+            
+            <Route
+            path="/patient/search"
+            element={<SearchMedicine/>}
+            />
+
             <Route
             path="/pharmacist/register"
             element={<PharmacistRegistrationForm/>}
@@ -36,6 +43,7 @@ function App() {
             path="/admin/home"
             element={<AdminPanel/>}
             />
+            
           </Routes>
         </div>
       </BrowserRouter>
