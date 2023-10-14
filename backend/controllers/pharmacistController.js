@@ -42,7 +42,7 @@ export const addMedicine = async (req, res) => {
   }
   try{const medicine = await medicineModel.findOne({ name });
   if (medicine) {
-      const newQuantity = medicine.quantity + quantity;
+      const newQuantity = parseInt(medicine.quantity) + parseInt(quantity);
       await medicineModel.findOneAndUpdate({ name }, { quantity: newQuantity }, { new: true });
       return res.status(200).json({ message: "Medicine quantity updated  successfully" });
   }else if(!medicine && (!ingredients || !price )){
