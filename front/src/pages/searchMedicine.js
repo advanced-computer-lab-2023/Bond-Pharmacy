@@ -32,7 +32,7 @@ function MedicineSearch() {
 
   return (
     <div className="medicine-search-container">
-      <div className="search-bar">
+      <div className="top-search-bar">
         <input
           className="search-bar"
           type="text"
@@ -40,7 +40,9 @@ function MedicineSearch() {
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search for medicines..."
         />
-        <button className="search-button"  onClick={handleSearch}>Search</button>
+        <button className="search-button" onClick={handleSearch}>
+          Search
+        </button>
       </div>
 
       <div className="medicine-table">
