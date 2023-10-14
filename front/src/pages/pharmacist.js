@@ -3,6 +3,22 @@ import axios from "axios";
 function PharmacistHome() {
     const [newMed, setNewMed] = useState({ name: "", ingredients: "",price:"",quantity:""  });
     const [newInfo, setNewInfo] = useState({ name: "", ingredients: "",price:"" });
+    const [medicines, setMedicines] = useState([]);
+  const [showTable, setShowTable] = useState(false);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch('http://localhost:4000/api/Pharmacist/viewMedicineQS');
+        const data = await response.json();
+        setMedicines(data.medicineQS);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
+  
     const handleAddMed = async (e) => {
         e.preventDefault();
         const response = await fetch("http://localhost:4000/api/Pharmacist/addMedicine", {
@@ -108,20 +124,30 @@ function PharmacistHome() {
                 <button onClick={handleEdit}>Update</button>
             </div>
             <div>
-            <button>View quantity, and sales of medicines </button>
-                <table className="user-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                            <th>Sales</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>     
-            </div>
+      <button onClick={() => setShowTable(!showTable)}>
+        {showTable ? 'Hide Table' : 'Show Table'}
+      </button>
+      {showTable && (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Sales</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Array.isArray(medicines) && medicines.map((medicine, index) => (
+              <tr key={index}>
+                <td>{medicine.name}</td>
+                <td>{medicine.quantity}</td>
+                <td>{medicine.sales}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
         </div>
     );
     }
