@@ -14,9 +14,6 @@ import PharmacistRegistration from "./pages/registration/PharmacistRegistration.
 import AdminHome from "./pages/home/AdminHome.jsx";
 import PatientHome from "./pages/home/PatientHome.jsx";
 import PharmacistHome from "./pages/home/PharmacistHome.jsx";
-import AddMedicine from "./pages/medicines/add-medicine";
-import GetMedicines from "./pages/medicines/get-medicines";
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -34,12 +31,16 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/patient/register" element={<PatientRegistration />} />
-          <Route path="/doctor/register" element={<PharmacistRegistration />} />
+          <Route
+            path="/pharmacist/register"
+            element={<PharmacistRegistration />}
+          />
           <Route path="/admin/home/:username" element={<AdminHome />} />
           <Route path="/patient/home/:username" element={<PatientHome />} />
-          <Route path="/doctor/home/:username" element={<PharmacistHome />} />
-          <Route path="/doctor/home/add-medicine" element={<AddMedicine />} />
-          <Route path="/doctor/home/get-medicines" element={<GetMedicines />} />
+          <Route
+            path="/pharmacist/home/:username"
+            element={<PharmacistHome />}
+          />
         </Routes>
       </QueryClientProvider>
     </BrowserRouter>

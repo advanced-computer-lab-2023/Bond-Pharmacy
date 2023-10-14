@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import AddMedicineForm from "../components/AddMedicineForm";
+import GetMedicinesForm from "../components/GetMedicineForm";
 function PharmacistHome() {
     const [newMed, setNewMed] = useState({ name: "", ingredients: "",price:"",quantity:""  });
     const [newInfo, setNewInfo] = useState({ name: "", ingredients: "",price:"" });
@@ -152,6 +154,8 @@ function PharmacistHome() {
         </table>
       )}
     </div>
+    <AddMedicineForm/>
+    <GetMedicinesForm/>
         </div>
     );
     }
