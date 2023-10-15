@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 import AddMedicineForm from "../components/AddMedicineForm";
 import GetMedicinesForm from "../components/GetMedicineForm";
 function PharmacistHome() {
@@ -61,9 +63,21 @@ function PharmacistHome() {
 
     
     return(
-        <div>
+
+        <body>
+                <div className="title">
+        <h1>Search Medicines</h1>
+        <p>Please select your preference:</p>
+        <div className="role-buttons">
+          <Link to="/patient/search" className="button">
+            Search Medicines
+          </Link>
+        </div>
+      </div>
+              <AddMedicineForm/>
+        <GetMedicinesForm/>
             <h4>Pharmacist Home</h4>
-            <div className="form-container">
+            {/* <div className="form-container">
                 <h5>Add new medicine</h5> 
                 <input
           type="text"
@@ -100,7 +114,7 @@ function PharmacistHome() {
 
                
 <button onClick={handleAddMed}>Add Med</button>
-            </div>
+            </div> */}
             <div className="form-container">
                 <h5>Edit medicine ingredients and price</h5>
                 <input
@@ -154,9 +168,7 @@ function PharmacistHome() {
         </table>
       )}
     </div>
-    <AddMedicineForm/>
-    <GetMedicinesForm/>
-        </div>
+        </body>
     );
     }
 
