@@ -37,6 +37,11 @@ function App() {
             />
 
         
+            <Route
+            path="/pharmacist/register"
+            element={<PharmacistRegistrationForm/>}
+            />
+
 
             <Route
             path="/pharmacist/search"

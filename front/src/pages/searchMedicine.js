@@ -6,15 +6,16 @@ function MedicineSearch() {
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [medicalUseFilter, setMedicalUseFilter] = useState(""); // New state for medical use filter
 
   // Define a function to handle the search request
   const handleSearch = async () => {
-    setLoading(true); // Set loading state to true
-
-    // Reset the error state when starting a new search
+    setLoading(true);
     setError(null);
 
     try {
+      // Perform your API call here for searching by name
+      // Replace this with your actual API endpoint
       const response = await fetch(
         `http://localhost:4000/api/pharmacist/searchMedicines?name=${searchQuery}`,
         { method: "GET" }
@@ -28,24 +29,32 @@ function MedicineSearch() {
           setSearchResults(data);
         } else {
           console.error("Response is not in JSON format.");
-          setError("Response is not in JSON format"); // Set error state
+          setError("Response is not in JSON format");
         }
       } else {
         console.error("Request failed with status:", response.status);
-        setError("No medicine with this name"); // Set error state
+        setError("No medicine with this name");
       }
     } catch (error) {
       console.error("Error searching for medicines:", error);
-      setError("Error searching for medicines: " + error); // Set error state
+      setError("Error searching for medicines: " + error);
     } finally {
-      setLoading(false); // Set loading state to false
+      setLoading(false);
     }
   };
 
-  // Handle Enter key press in the input field
-  const handleKeyPress = (e) => {
+  // Define a function to filter results by medical use
+  const filterByMedicalUse = () => {
+    const filteredResults = searchResults.filter((result) =>
+      result.medicalUse.toLowerCase().includes(medicalUseFilter.toLowerCase())
+    );
+    setSearchResults(filteredResults);
+  };
+
+  // Handle Enter key press in the medical use input field
+  const handleMedicalUseKeyPress = (e) => {
     if (e.key === "Enter") {
-      handleSearch();
+      filterByMedicalUse();
     }
   };
 
@@ -62,11 +71,24 @@ function MedicineSearch() {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyPress={handleKeyPress} // Call handleSearch when Enter is pressed
+          onKeyPress={handleMedicalUseKeyPress}
           placeholder="Search for medicines..."
         />
         <button className="search-button" onClick={handleSearch}>
           Search
+        </button>
+      </div>
+
+      <div className="filter-by-medical-use">
+        <input
+          type="text"
+          value={medicalUseFilter}
+          onChange={(e) => setMedicalUseFilter(e.target.value)}
+          onKeyPress={handleMedicalUseKeyPress}
+          placeholder="Filter by Medical Use"
+        />
+        <button className="filter-button" onClick={filterByMedicalUse}>
+          Filter
         </button>
       </div>
 

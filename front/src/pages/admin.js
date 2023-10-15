@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import "./styles.css";
 
 function AdminPanel() {
   const [newAdmin, setNewAdmin] = useState({ username: "", password: "" });
@@ -214,6 +216,18 @@ function AdminPanel() {
         <button onClick={handleRemovePatient}>Delete patient</button>
       </div>
 
+      <div className="title">
+        <h1>Search Medicines</h1>
+        <p>Please select your preference:</p>
+        <div className="role-buttons">
+          <Link to="/patient/search" className="button">
+            Search Medicines
+          </Link>
+        </div>
+      </div>
+
+
+
       {/* User List */}
       <div>
       <h2 className="table-name">Pharmacist List</h2>
@@ -293,7 +307,7 @@ function AdminPanel() {
           </tr>
         </thead>
         <tbody>
-          {patients.map((patient) => (
+          {patients &&  patients.map((patient) => (
             <tr
               key={patient.id}
             >
