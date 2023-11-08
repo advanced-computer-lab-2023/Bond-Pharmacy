@@ -10,6 +10,9 @@ router.post('/', createPharmacist);
 
 router.post('/createPharmacist', createPharmacist);
 
+//9
+router.post('/register', createPharmacist);
+
 router.post('/createMedicine', createMedicine);
 
 router.get('/getMedicines', getMedicines);

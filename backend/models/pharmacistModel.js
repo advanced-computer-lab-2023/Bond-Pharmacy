@@ -45,7 +45,16 @@ const doctorSchema = new mongoose.Schema({
     educationBg: {
         type: String,
         required: true,
-    }
+    },
+    idDocument: {
+        type: String, // Store the file path or link to the uploaded ID document
+    },
+    pharmacyDegreeDocument: {
+        type: String, // Store the file path or link to the uploaded pharmacy degree document
+    },
+    workingLicenseDocument: {
+        type: String, // Store the file path or link to the uploaded working license document
+    },
 });
 
 export default mongoose.model('Doctor',doctorSchema)

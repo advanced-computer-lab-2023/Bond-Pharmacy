@@ -58,3 +58,21 @@ export const viewpatient =  async (req, res) => {
     res.status(404).json({error: error.message});
   }
 }
+export const acceptOrRejectPharmacistRequest = async (req, res) => {
+  const { username, status } = req.body;
+
+  try {
+    const pharmacist = await pharmacistModel.findOne({ username });
+
+    if (!pharmacist) {
+      return res.status(404).json({ error: "Pharmacist not found" });
+    }
+
+    pharmacist.status = status; // 'status' can be 'accepted' or 'rejected'
+    await pharmacist.save();
+
+    res.status(200).json(pharmacist);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

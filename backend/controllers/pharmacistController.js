@@ -1,7 +1,18 @@
 import pharmacistModel from "../models/pharmacistModel.js";
 import medicineModel from "../models/medicineModel.js"
+import multer from "multer";
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, "uploads/"); //store uploaded documents
+  },
+  filename: (req, file, cb) => {
+      const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+      cb(null, uniqueSuffix + "-" + file.originalname);
+  },
+});
 
+const upload = multer({ storage: storage });
 export const createPharmacist = async (req, res) => {
   const {
     username,
@@ -15,6 +26,22 @@ export const createPharmacist = async (req, res) => {
     affiliation,
     educationBg
   } = req.body;
+  
+ // Handle file uploads for documents
+ upload.fields([
+  { name: "idDocument", maxCount: 1 },
+  { name: "pharmacyDegreeDocument", maxCount: 1 },
+  { name: "workingLicenseDocument", maxCount: 1 },
+])(req, res, async (err) => {
+  if (err) {
+      return res.status(400).json({ error: "File upload error." });
+  }
+
+  // Get file paths from the uploaded documents
+  const idDocument = req.files["idDocument"][0].path;
+  const pharmacyDegreeDocument = req.files["pharmacyDegreeDocument"][0].path;
+  const workingLicenseDocument = req.files["workingLicenseDocument"][0].path;
+
   try {
     const doctor = await pharmacistModel.create({
       username,
@@ -26,12 +53,16 @@ export const createPharmacist = async (req, res) => {
       phoneNumber,
       hourlyRate,
       affiliation,
-      educationBg
+      educationBg,
+      idDocument,
+      pharmacyDegreeDocument,
+      workingLicenseDocument,
     });
     res.status(200).json(doctor);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+});
 };
 
 // req.16 , add medicine 
@@ -161,6 +192,7 @@ export const searchMedicine = async (req, res) => {
     res.status(500).json({ message: 'Server error.' });
   }
 };
+
 
 
 
