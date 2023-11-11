@@ -1,5 +1,5 @@
 import express from "express";
-import {login, searchMedicine,getMedicines, createMedicine, createPharmacist, deletePharmacist, fetchPharmacist, viewMedicineQS, addMedicine, editMedicineIandP } from "../controllers/pharmacistController.js";
+import {login, changePassword, searchMedicine,getMedicines, createMedicine, createPharmacist, deletePharmacist, fetchPharmacist, viewMedicineQS, addMedicine, editMedicineIandP } from "../controllers/pharmacistController.js";
 import { requireAuth } from "../Middleware/authMiddleware.js";
 
 //router initialization
@@ -21,6 +21,8 @@ router.get('/getMedicines', getMedicines);
 router.get('/searchMedicines',requireAuth,searchMedicine);
 
 router.post('/login',login);
+
+router.put('/changePassword', changePassword);
 
 router.delete('/', deletePharmacist);
 
