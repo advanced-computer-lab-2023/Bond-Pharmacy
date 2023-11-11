@@ -5,6 +5,7 @@ import adminRoutes from "./routes/admin.js"
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from 'dotenv';
+import cookieParser from "cookie-parser";
 
 //initializations
 dotenv.config();
@@ -15,12 +16,14 @@ const port = process.env.PORT || 4000; // Default to port 4000 if the environmen
 const mongo = process.env.MONGO_URI;
 //middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: 'http://localhost:3000',credentials:true}));
+app.use(cookieParser())
 
 //routes
 app.use("/api/patient/", patientRoutes);
 app.use("/api/pharmacist/", pharmacistRoutes);
 app.use("/api/admin/", adminRoutes);
+
 
 //connect to db
 mongoose
