@@ -1,6 +1,45 @@
-import pharmacistModel from "../models/pharmacistModel.js";
+import doctorModel from "../models/pharmacistModel.js";
 import medicineModel from "../models/medicineModel.js"
 import multer from "multer";
+
+import jwt from "jsonwebtoken"
+
+
+// create json web token
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (username,role) => {
+    return jwt.sign({ username,role }, 'supersecret', {
+        expiresIn: maxAge
+    });
+};
+
+export const login = async(req,res) => {
+
+  try {
+    const { username, password } = req.body;
+  const pharmacist = await doctorModel.findOne({username:username});
+  if (!pharmacist){
+    return res.status(400).json({error : "Pharmacist Doesn't Exist"});
+  }
+
+  if(pharmacist.password !== password){
+    return res.status(400).json({error : "Incorrect Password"});
+  }
+
+  const token = createToken(username,"pharmacist");
+  res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge*1000,sameSite: "none", secure: true });
+  res.set('Access-Control-Allow-Origin',req.headers.origin);
+  res.set('Access-Control-Allow-Credentials','true');
+
+
+  res.status(200).json(pharmacist);
+  //res.redirect('/admin/home');
+  } catch (error) {
+    return res.status(400).json({error : error.message})
+  }
+}
+
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -28,19 +67,19 @@ export const createPharmacist = async (req, res) => {
   } = req.body;
   
  // Handle file uploads for documents
- upload.fields([
-  { name: "idDocument", maxCount: 1 },
-  { name: "pharmacyDegreeDocument", maxCount: 1 },
-  { name: "workingLicenseDocument", maxCount: 1 },
-])(req, res, async (err) => {
-  if (err) {
-      return res.status(400).json({ error: "File upload error." });
-  }
+//  upload.fields([
+//   { name: "idDocument", maxCount: 1 },
+//   { name: "pharmacyDegreeDocument", maxCount: 1 },
+//   { name: "workingLicenseDocument", maxCount: 1 },
+// ])(req, res, async (err) => {
+//   if (err) {
+//       return res.status(400).json({ error: "File upload error." });
+//   }
 
-  // Get file paths from the uploaded documents
-  const idDocument = req.files["idDocument"][0].path;
-  const pharmacyDegreeDocument = req.files["pharmacyDegreeDocument"][0].path;
-  const workingLicenseDocument = req.files["workingLicenseDocument"][0].path;
+//   // Get file paths from the uploaded documents
+//   const idDocument = req.files["idDocument"][0].path;
+//   const pharmacyDegreeDocument = req.files["pharmacyDegreeDocument"][0].path;
+//   const workingLicenseDocument = req.files["workingLicenseDocument"][0].path;
 
   try {
     const doctor = await pharmacistModel.create({
@@ -54,16 +93,16 @@ export const createPharmacist = async (req, res) => {
       hourlyRate,
       affiliation,
       educationBg,
-      idDocument,
-      pharmacyDegreeDocument,
-      workingLicenseDocument,
+      // idDocument,
+      // pharmacyDegreeDocument,
+      // workingLicenseDocument,
     });
     res.status(200).json(doctor);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-});
 };
+
 
 // req.16 , add medicine 
 export const addMedicine = async (req, res) => {
@@ -172,7 +211,7 @@ export const searchMedicine = async (req, res) => {
 
   try {
     // Log the search 'name' to the console for debugging purposes
-    console.log("name:", name);
+    console.log("name:", String(name));
 
     // Search for medicines in the database that match the provided 'name' using a case-insensitive regex
     const medicines = await medicineModel.find({ name: { $regex: name, $options: 'i' }});
@@ -189,7 +228,7 @@ export const searchMedicine = async (req, res) => {
     console.error(err);
     
     // Return a 500 Internal Server Error response to indicate a server error
-    res.status(500).json({ message: 'Server error.' });
+    res.status(500).json({ message: err.message });
   }
 };
 

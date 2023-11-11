@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "./MedicineSearch.css"; // Import the CSS file
+import { useNavigate } from "react-router-dom";
 
 function MedicineSearch() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(" ");
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [medicalUseFilter, setMedicalUseFilter] = useState(""); // New state for medical use filter
+  const navigate  = useNavigate();
 
   // Define a function to handle the search request
   const handleSearch = async () => {
@@ -16,9 +18,11 @@ function MedicineSearch() {
     try {
       // Perform your API call here for searching by name
       // Replace this with your actual API endpoint
+      console.log(searchQuery);
       const response = await fetch(
-        `http://localhost:4000/api/pharmacist/searchMedicines?name=${searchQuery}`,
-        { method: "GET" }
+        "http://localhost:4000/api/pharmacist/searchMedicines?name="+searchQuery,
+        { method: "GET",
+        credentials : `include` }
       );
 
       if (response.ok) {
@@ -32,8 +36,9 @@ function MedicineSearch() {
           setError("Response is not in JSON format");
         }
       } else {
-        console.error("Request failed with status:", response.status);
-        setError("No medicine with this name");
+       // console.error("Request failed with status:", response.status);
+        //setError("No medicine with this name");
+        navigate("/login");
       }
     } catch (error) {
       console.error("Error searching for medicines:", error);

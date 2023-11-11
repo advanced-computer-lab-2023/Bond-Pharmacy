@@ -6,6 +6,7 @@ import PharmacistRegistrationForm from "./pages/pharmacistRegistration.js";
 import PatientHome from "./pages/patient.js";
 import PharmacistHome from "./pages/pharmacist.js";
 import SearchMedicine from "./pages/searchMedicine.js"
+import Login from "./pages/login.js";
 
 function App() {
   return (
@@ -13,6 +14,10 @@ function App() {
       <BrowserRouter>
         <div className="pages">
           <Routes>
+          <Route 
+            path="/login"
+            element={<Login/>}
+            />
             <Route 
             path="/"
             element={<LandingPage/>}
