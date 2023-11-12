@@ -1,5 +1,5 @@
 import express, { json } from "express";
-import { login, changePassword, createPatient,deletePatient, fetchPatient } from "../controllers/patientController.js";
+import { login, changePassword, resetPassword, verifyOTP, createPatient,deletePatient, fetchPatient } from "../controllers/patientController.js";
 
 //router initialization
 const router = express.Router();
@@ -16,5 +16,9 @@ router.delete('/',deletePatient);
 router.post('/login',login);
 
 router.put('/changePassword', changePassword);
+
+router.post('/resetPassword', resetPassword);
+
+router.post('/verifyOTP', verifyOTP);
 
 export default router;
