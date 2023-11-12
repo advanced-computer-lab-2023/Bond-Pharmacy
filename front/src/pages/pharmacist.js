@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import LogoutButton from "../components/LogoutButton";
 import AddMedicineForm from "../components/AddMedicineForm";
 import GetMedicinesForm from "../components/GetMedicineForm";
 function PharmacistHome() {
@@ -77,6 +77,8 @@ function PharmacistHome() {
               <AddMedicineForm/>
         <GetMedicinesForm/>
             <h4>Pharmacist Home</h4>
+
+            <LogoutButton/>
             {/* <div className="form-container">
                 <h5>Add new medicine</h5> 
                 <input
