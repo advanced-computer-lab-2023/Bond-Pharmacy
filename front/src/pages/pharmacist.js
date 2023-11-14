@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import LogoutButton from "../components/LogoutButton";
 import AddMedicineForm from "../components/AddMedicineForm";
 import GetMedicinesForm from "../components/GetMedicineForm";
+import ChangePasswordForm from "../components/ChangePasswordForm.js";
+
 function PharmacistHome() {
     const [newMed, setNewMed] = useState({ name: "", ingredients: "",price:"",quantity:""  });
     const [newInfo, setNewInfo] = useState({ name: "", ingredients: "",price:"" });
@@ -79,6 +81,7 @@ function PharmacistHome() {
             <h4>Pharmacist Home</h4>
 
             <LogoutButton/>
+            <ChangePasswordForm/>
             {/* <div className="form-container">
                 <h5>Add new medicine</h5> 
                 <input
