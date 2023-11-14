@@ -6,6 +6,10 @@ import PharmacistRegistrationForm from "./pages/pharmacistRegistration.js";
 import PatientHome from "./pages/patient.js";
 import PharmacistHome from "./pages/pharmacist.js";
 import SearchMedicine from "./pages/searchMedicine.js"
+import MedicinePatient from "./pages/MedicinePatient.js";
+import DummyCartScreen from "./pages/cart.js";
+
+
 import Login from "./pages/login.js";
 
 function App() {
@@ -33,7 +37,11 @@ function App() {
             
             <Route
             path="/patient/search"
-            element={<SearchMedicine/>}
+            element={<MedicinePatient/>}
+            />
+             <Route
+            path="/patient/cart"
+            element={<DummyCartScreen/>}
             />
 
             <Route
@@ -60,6 +68,7 @@ function App() {
             path="/admin/home"
             element={<AdminPanel/>}
             />
+
             
           </Routes>
         </div>

@@ -120,3 +120,22 @@ img {
   justify-content: center;
   align-items: center;
 }
+
+.medicine-search-container {
+  display: flex;
+  justify-content: space-between; /* Add this line to create space between the two divs */
+}
+
+.search-and-cart-container {
+  display: flex;
+  width: 100%;
+}
+
+.medicine-content {
+  flex: 1; /* This will make the Medicine content take up the available space */
+}
+
+.cart-content {
+  width: 300px; /* Adjust the width of the cart as needed */
+  margin-left: 20px; /* Add some margin between Medicine content and Cart content */
+}
