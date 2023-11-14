@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState } from 'react';
 import PatientRegistrationForm from "./pages/patientRegistration.js";
 import LandingPage from "./pages/LandingPage.js";
 import AdminPanel from "./pages/admin.js";
@@ -8,13 +9,19 @@ import PharmacistHome from "./pages/pharmacist.js";
 import SearchMedicine from "./pages/searchMedicine.js"
 import MedicinePatient from "./pages/MedicinePatient.js";
 import DummyCartScreen from "./pages/cart.js";
+import ResetPassword from "./pages/ResetPassword.js";
+import OtpVerification from "./pages/OtpVerification.js";
+import RoleContext from "./pages/RoleContext.js";
 
 
 import Login from "./pages/login.js";
 
 function App() {
+  const [role, setRole] = useState('');
+
   return (
     <div className="App">
+    <RoleContext.Provider value={{ role, setRole }}> 
       <BrowserRouter>
         <div className="pages">
           <Routes>
@@ -22,6 +29,8 @@ function App() {
             path="/login"
             element={<Login/>}
             />
+          <Route path="/resetPassword" element={<ResetPassword/>} />
+          <Route path="/verifyOTP" element={<OtpVerification/>} />
             <Route 
             path="/"
             element={<LandingPage/>}
@@ -73,6 +82,7 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
+    </RoleContext.Provider>
     </div>
   );
 }
