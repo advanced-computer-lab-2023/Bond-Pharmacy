@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import {  useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -85,6 +85,8 @@ const Login = () => {
         </label>
         <br />
         <button type="submit" >Login</button>
+        <br />
+        <Link to="/resetPassword">Forgot Password?</Link>
       </form>
     </div>
   );
