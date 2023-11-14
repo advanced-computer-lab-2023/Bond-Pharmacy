@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./styles.css";
 import LogoutButton from "../components/LogoutButton";
+import ChangePasswordForm from "../components/ChangePasswordForm.js";
+
 function PatientHome() {
     return(
         <body>
@@ -14,6 +16,7 @@ function PatientHome() {
             Search Medicines
           </Link>
         </div>
+        <ChangePasswordForm/>
       </div>
     </body>
     );

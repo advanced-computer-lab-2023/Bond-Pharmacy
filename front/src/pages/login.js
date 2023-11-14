@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {  useNavigate, Link } from 'react-router-dom';
+import RoleContext from './RoleContext';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ const Login = () => {
   });
 
   const navigate  = useNavigate();
+
+  const { setRole } = useContext(RoleContext);
 
   const [error, setError] = useState('');
 
@@ -36,6 +39,8 @@ const Login = () => {
       if (response.ok) {
         // Reset error state on successful login
         setError('');
+        // Set the role in the context
+        setRole(formData.role);
         // Redirect or handle response as needed
         navigate("/"+formData.role+"/home");
       } else {

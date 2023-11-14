@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./styles.css";
 import LogoutButton from "../components/LogoutButton";
+import ChangePasswordForm from "../components/ChangePasswordForm.js";
 
 function AdminPanel() {
   const [newAdmin, setNewAdmin] = useState({ username: "", password: "" });
@@ -228,8 +229,7 @@ function AdminPanel() {
           </Link>
         </div>
       </div>
-
-
+      <ChangePasswordForm/>    
 
       {/* User List */}
       <div>
