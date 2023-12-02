@@ -1,17 +1,17 @@
 import React, { useState, useContext } from 'react';
-import {  useNavigate, Link } from 'react-router-dom';
+import {  useNavigate, Link} from 'react-router-dom';
+import UsernameContext from './UsernameContext';
 import RoleContext from './RoleContext';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    role: 'admin',
-    username: 'null',
-    password: 'null',
-  });
-
   const navigate  = useNavigate();
-
+  const {setUsername} = useContext(UsernameContext);
   const { setRole } = useContext(RoleContext);
+
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
 
   const [error, setError] = useState('');
 
@@ -23,9 +23,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      // Make a request to the server for authentication
-
-      const response = await fetch("http://localhost:4000/api/"+formData.role+"/login", {
+      const response = await fetch("http://localhost:4000/api/user/login", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,17 +37,17 @@ const Login = () => {
       if (response.ok) {
         // Reset error state on successful login
         setError('');
-        // Set the role in the context
-        setRole(formData.role);
+        // Destructure username and role from data
+        const { username, role } = data;
+        // Set username and role in the context
+        setUsername(username);
+        setRole(role);
         // Redirect or handle response as needed
-        navigate("/"+formData.role+"/home");
+        navigate("/"+role+"/home");
       } else {
         // Display error message
         setError(data.error || 'An error occurred');
       }
-      console.log(data);
-
-      // Redirect or handle response as needed
     } catch (error) {
       console.error('Error during login:', error);
     }
@@ -60,15 +58,6 @@ const Login = () => {
       <h2>Login</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={handleSubmit}>
-        <label>
-          Role:
-          <select name="role" value={formData.role} onChange={handleChange}>
-            <option value="pharmacist">Pharmacist</option>
-            <option value="patient">Patient</option>
-            <option value="admin">Admin</option>
-          </select>
-        </label>
-        <br />
         <label>
           Username:
           <input
@@ -89,9 +78,9 @@ const Login = () => {
           />
         </label>
         <br />
-        <button type="submit" >Login</button>
+        <button className='button-78' type="submit">Login</button>
         <br />
-        <Link to="/resetPassword">Forgot Password?</Link>
+        <Link to="/forgotPassword">Forgot Password?</Link>
       </form>
     </div>
   );

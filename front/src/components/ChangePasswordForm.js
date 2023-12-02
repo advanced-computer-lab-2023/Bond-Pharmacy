@@ -3,62 +3,59 @@ import { useNavigate } from "react-router-dom";
 import RoleContext from '../pages/RoleContext.js';
 
 const ChangePasswordForm = () => {
-    const { role } = useContext(RoleContext);
-    const navigate = useNavigate();
+  const { role } = useContext(RoleContext);
+  const navigate = useNavigate();
 
-    const [passwordChangeFormData, setPasswordChangeFormData] = useState({
-      oldPassword: '',
-      newPassword: '',
-      reNewPassword: '',
-    });
+  const [formData, setFormData] = useState({
+    oldPassword: '',
+    newPassword: '',
+    reNewPassword: '',
+  });
+
+  const [error, setError] = useState('');
   
-    const [error, setError] = useState('');
-  
-    const handleChangePasswordChange = (e) => {
-      setPasswordChangeFormData({ ...passwordChangeFormData, [e.target.name]: e.target.value });
+  const handleChangePasswordChange = (e) => {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   
   const handleChangePasswordFormSubmit = async (e) => {
     e.preventDefault();
   
     try {
-      const response = await fetch("http://localhost:4000/api/"+role+"/changePassword", {
-        method: 'PUT',
+      const response = await fetch("http://localhost:4000/api/user/resetPassword", {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          oldPassword: passwordChangeFormData.oldPassword,
-          newPassword: passwordChangeFormData.newPassword,
-          reNewPassword: passwordChangeFormData.reNewPassword,
+          oldPassword: formData.oldPassword,
+          newPassword: formData.newPassword,
+          reNewPassword: formData.reNewPassword,
         }),
         withCredentials: true,
         credentials : `include`
       });
-      
-      if (!response.ok) {
-        // If response status is not ok, handle it differently
-        const errorText = await response.text();
-        setError(`Error: ${response.status} - ${errorText}`);
-        return;
-      }
   
       const data = await response.json();
-              if (response.ok) {
-              // Reset error state and move back to the login step
-                setError('');
-              // Clear the passwordChangeFormData fields
-                setPasswordChangeFormData({
-                  oldPassword: '',
-                  newPassword: '',
-                  reNewPassword: '',
-                });
-              // Navigate to the login page after successful password reset
-                navigate('/'+role+'/home');
-              } else {
-                  setError(data.error || 'An error occurred during password verification');
-              }
-            // Redirect or handle response as needed
+      console.log(data); // Check the console for the entire JSON response
+      if (response.ok) {
+        // Reset error state and move back to the login step
+        setError('');
+        // Clear the passwordChangeFormData fields
+        setFormData({
+          oldPassword: '',
+          newPassword: '',
+          reNewPassword: '',
+        });
+        const { username, role } = data;
+        if (role) {
+          // Navigate to the appropriate page based on the 'role'
+          navigate("/"+role+"/home");
+        }    
+      } else {
+          setError(data.error || 'An error occurred during password verification');
+      }
+      // Redirect or handle response as needed
     } catch (error) {
       console.error('Error changing password:', error);
     }
@@ -73,7 +70,7 @@ const ChangePasswordForm = () => {
         <input
           type="password"
           name="oldPassword"
-          value={passwordChangeFormData.oldPassword}
+          value={formData.oldPassword}
           onChange={handleChangePasswordChange}
           required
         />
@@ -84,7 +81,7 @@ const ChangePasswordForm = () => {
           <input
             type="password"
             name="newPassword"
-            value={passwordChangeFormData.newPassword}
+            value={formData.newPassword}
             onChange={handleChangePasswordChange}
             required
           />
@@ -95,7 +92,7 @@ const ChangePasswordForm = () => {
           <input
             type="password"
             name="reNewPassword"
-            value={passwordChangeFormData.reNewPassword}
+            value={formData.reNewPassword}
             onChange={handleChangePasswordChange}
             required
           />
