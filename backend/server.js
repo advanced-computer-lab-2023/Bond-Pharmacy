@@ -2,6 +2,7 @@ import express from "express";
 import patientRoutes from "./routes/patient.js";
 import pharmacistRoutes from "./routes/pharmacist.js";
 import adminRoutes from "./routes/admin.js"
+import userRoutes from "./routes/user.js";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from 'dotenv';
@@ -23,7 +24,7 @@ app.use(cookieParser())
 app.use("/api/patient/", patientRoutes);
 app.use("/api/pharmacist/", pharmacistRoutes);
 app.use("/api/admin/", adminRoutes);
-
+app.use("/api/user/", userRoutes);
 
 //connect to db
 mongoose

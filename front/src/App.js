@@ -9,28 +9,27 @@ import PharmacistHome from "./pages/pharmacist.js";
 import SearchMedicine from "./pages/searchMedicine.js"
 import MedicinePatient from "./pages/MedicinePatient.js";
 import DummyCartScreen from "./pages/cart.js";
-import ResetPassword from "./pages/ResetPassword.js";
-import OtpVerification from "./pages/OtpVerification.js";
-import RoleContext from "./pages/RoleContext.js";
-
-
 import Login from "./pages/login.js";
+import ForgotPassword from "./pages/forgotPassword.js";
+import ResetPassword from "./pages/resetPassword.js";
+import RoleContext from "./pages/RoleContext.js";
+import UsernameContext from "./pages/UsernameContext.js";
+
 
 function App() {
+  const [username, setUsername] = useState('');
   const [role, setRole] = useState('');
 
   return (
     <div className="App">
-    <RoleContext.Provider value={{ role, setRole }}> 
+    <UsernameContext.Provider value={{ username, setUsername }}>
+    <RoleContext.Provider value={{ role, setRole }}>  
       <BrowserRouter>
         <div className="pages">
           <Routes>
-          <Route 
-            path="/login"
-            element={<Login/>}
-            />
-          <Route path="/resetPassword" element={<ResetPassword/>} />
-          <Route path="/verifyOTP" element={<OtpVerification/>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgotPassword" element={<ForgotPassword/>}/>
+            <Route path="resetPassword" element={<ResetPassword/>}/>
             <Route 
             path="/"
             element={<LandingPage/>}
@@ -83,6 +82,7 @@ function App() {
         </div>
       </BrowserRouter>
     </RoleContext.Provider>
+    </UsernameContext.Provider>
     </div>
   );
 }
