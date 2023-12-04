@@ -63,16 +63,23 @@ export const viewpatient =  async (req, res) => {
 }
 export const acceptOrRejectPharmacistRequest = async (req, res) => {
   const { username, status } = req.body;
+  const updateFields = {};
+
+  // Check if status is provided and update it
+  if (status) {
+    updateFields.status = status;
+  }
 
   try {
-    const pharmacist = await pharmacistModel.findOne({ username });
+    const pharmacist = await pharmacistModel.findOneAndUpdate(
+      { username },
+      updateFields,
+      { new: true }
+    );
 
     if (!pharmacist) {
       return res.status(404).json({ error: "Pharmacist not found" });
     }
-
-    pharmacist.status = status; // 'status' can be 'accepted' or 'rejected'
-    await pharmacist.save();
 
     res.status(200).json(pharmacist);
   } catch (error) {

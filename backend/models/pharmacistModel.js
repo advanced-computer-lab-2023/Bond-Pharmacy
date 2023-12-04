@@ -46,6 +46,11 @@ const doctorSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    status: {
+        type: String,
+        enum: ["pending", "approved", "rejected"],
+        default: "pending",
+      },
     idDocument: {
         type: String, // Store the file path or link to the uploaded ID document
     },
