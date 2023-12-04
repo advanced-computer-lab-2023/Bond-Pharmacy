@@ -24,7 +24,8 @@ export const createPharmacist = async (req, res) => {
     phoneNumber,
     hourlyRate,
     affiliation,
-    educationBg
+    educationBg,
+    status
   } = req.body;
   
  // Handle file uploads for documents
@@ -54,9 +55,16 @@ export const createPharmacist = async (req, res) => {
       hourlyRate,
       affiliation,
       educationBg,
+<<<<<<< Updated upstream
       // idDocument,
       // pharmacyDegreeDocument,
       // workingLicenseDocument,
+=======
+      status,
+      idDocument,
+      pharmacyDegreeDocument,
+      workingLicenseDocument,
+>>>>>>> Stashed changes
     });
     res.status(200).json(doctor);
   } catch (error) {
@@ -154,6 +162,17 @@ export const fetchPharmacist = async (req, res) => {
   }
 }
 
+export const fetchPendingDoctor = async (req, res) => {
+  try {
+    // Exclude doctors with "approved" status
+    const doctors = await Doctor.find({ status: { $ne: "approved" } });
+    res.json(doctors);
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
 export const deletePharmacist = async (req, res) => {
   const { username } = req.body;
 
@@ -192,6 +211,26 @@ export const searchMedicine = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+export const acceptPharmacist = async (req, res) => {
+  const { username } = req.body;
+
+  try {
+    const updatedPharmacist = await pharmacistModel.findOneAndUpdate(
+      { username },
+      { status: "approved" },
+      { new: true }
+    );
+
+    if (!updatedPharmacist) {
+      return res.status(404).json({ error: "Pharmacist not found" });
+    }
+
+    res.status(200).json(updatedPharmacist);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 
 
 

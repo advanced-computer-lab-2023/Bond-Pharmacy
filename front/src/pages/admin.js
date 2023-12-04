@@ -117,22 +117,31 @@ function AdminPanel() {
   };
   const handleAcceptPharmacist = async (e) => {
     e.preventDefault();
-    //TODO accept a Pharmacist
-    // const response = await fetch("http://localhost:4000/api/Pharmacist", {
-    //   method: "POST",
-    //   body: JSON.stringify(newAdmin),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // const json = await response.json();
-    // if (!response.ok) {
-    //   alert(json.error);
-    // }
-    // if (response.ok) {
-    //   alert("Admin Registered Successfully");
-    // }
-  }
+  
+    const response = await fetch("http://localhost:4000/api/pharmacist/acceptPharmacist", {
+      method: "PATCH",
+      body: JSON.stringify({ username: selectedUser.username }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  
+    const json = await response.json();
+    if (!response.ok) {
+      alert(json.error);
+    } else {
+      // Update the user list and reset selectedUser state
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.username === selectedUser.username
+            ? { ...user, status: "approved" }
+            : user
+        )
+      );
+      setSelectedUser(null);
+      alert("Pharmacist Approved Successfully");
+    }
+  };
 
   const handleFetchPateints = async(e) => {
     e.preventDefault();
@@ -247,6 +256,7 @@ function AdminPanel() {
             <th>Hourly Rate</th>
             <th>Affiliation</th>
             <th>Educational Background</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
@@ -266,6 +276,7 @@ function AdminPanel() {
               <td>{user.hourlyRate}</td>
               <td>{user.affiliation}</td>
               <td>{user.educationBg}</td>
+              <td>{user.status}</td>
             </tr>
           ))}
         </tbody>
@@ -274,7 +285,7 @@ function AdminPanel() {
       {selectedUser && (
         <div className="select-buttons">
           <button className="one" onClick={handleAcceptPharmacist}>Accept Pharmacist</button>
-          <button className= "two" onClick={handleRemovePharmacist}>Delete Pharmacist</button>
+          <button className= "two" onClick={handleRemovePharmacist}>Reject Pharmacist</button>
         </div>
       )}
     </div>

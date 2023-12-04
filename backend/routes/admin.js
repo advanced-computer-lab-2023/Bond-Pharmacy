@@ -15,6 +15,6 @@ router.post('/resetPassword', resetPassword);
 router.post('/verifyOTP', verifyOTP);
 
 //8
-router.post('/acceptOrRejectPharmacistRequest', acceptOrRejectPharmacistRequest);
+router.post('/', acceptOrRejectPharmacistRequest);
 
 export default router
